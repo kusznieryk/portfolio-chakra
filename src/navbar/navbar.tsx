@@ -22,7 +22,8 @@ const navbar: React.FC<props> = ({ itemsDetails }) => {
           <Image src="https://icongr.am/fontawesome/download.svg?size=36&color=778DA9" />
         }
         as={Link}
-        href=""
+        href="https://drive.google.com/file/d/1-mEEa9riCoi4oioYVdKlPerd5pnEZrwk/view?usp=sharing"
+        target="_blank"
         p="4"
         color="brand.100"
         colorScheme="brand.300"
@@ -30,7 +31,7 @@ const navbar: React.FC<props> = ({ itemsDetails }) => {
       >
         <Text opacity={{ base: "1", lg: 0 }} _hover={{ opacity: 1 }}>
           {" "}
-          Resume
+          Download CV
         </Text>
       </Button>
     </Box>
