@@ -4,8 +4,10 @@ import {
   TabPanel,
   TabPanels,
   Tab,
-  Fade,
+  Fade, Heading,
+    Box
 } from "@chakra-ui/react";
+import Underline from "../underline";
 import React, { ReactElement, useEffect, useState } from "react";
 
 import { project } from "../types";
@@ -39,11 +41,8 @@ const projects = () => {
   useEffect(() => {
     setElements(
       projects.map((el, i) => (
-        <TabPanel key={i}>
-          <Fade in={true} unmountOnExit={true}>
+
             <Project details={el} />
-          </Fade>
-        </TabPanel>
       ))
     );
   }, [projects]);
@@ -61,18 +60,15 @@ const projects = () => {
     else setIndex(index - 1);
   };
   return (
-    <Tabs
-      isLazy
-      isFitted
-      index={index}
-      paddingBottom="20vh"
-      position="relative"
-    >
-      <Button right="initial" onclick={subIndex} text={"<"} />
-      <TabPanels>{elements}</TabPanels>
-      <Button right="0" onclick={addIndex} text={">"} />
-      <TabList>{list}</TabList>
-    </Tabs>
+      <Box color={"var(--chakra-colors-brand-300)"} display={"flex"} flexDirection={"column"} >
+        <Heading  pl={"200px"} pt={"20px"} >
+          My Projects
+          <Underline />
+        </Heading>
+        <Box display={"grid"} gridTemplateColumns={"repeat(auto-fill, minmax(380px,1fr))"} gap={"2rem"} mt={"3rem"} alignItems={"center"} justifyContent={"space-between"} >
+          {elements}
+        </Box>
+      </Box>
   );
 };
 

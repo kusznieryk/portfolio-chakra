@@ -55,7 +55,9 @@ const app = () => {
              alignItems="center"
              position="relative"
              minH="100vh"
-             padding={"0 2rem"}>
+             padding={"0 2rem"}
+             width={"90vw"}
+        >
           <Home />
         </Box>
         <Box id="about"
@@ -63,9 +65,11 @@ const app = () => {
              padding={"4rem 2rem"}>
           <About />
         </Box>
-        <Flex id="projects" reff={refP}>
+        <Box id="projects" reff={refP}
+             minH="100vh"
+             padding={"4rem 2rem"}>
           <Projects />
-        </Flex>
+        </Box>
         <Flex id="contact" reff={refC}>
           <Contact />
         </Flex>

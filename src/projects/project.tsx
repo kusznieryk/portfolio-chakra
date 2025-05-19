@@ -1,57 +1,115 @@
 import React from "react";
-import { Box, Stack, Heading, Text, Link, Center } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Heading,
+    Text,
+    Link,
+    Image,
+    Tag,
+    HStack,
+    VStack,
+    useColorModeValue
+} from "@chakra-ui/react";
 
-import { project } from "../types";
-
-interface props {
-  details: project;
+// Define the project interface if needed
+interface Project {
+    name: string;
+    description: string;
+    image: string;
+    technologies: string[];
+    previewUrl: string;
+    githubUrl: string;
 }
-const proj: React.FC<props> = ({ details }) => {
-  return (
-    <Stack h="80vh" w="80vw" direction={{ base: "column", lg: "row" }} gap="4">
-      <Box
-        bgImage={details.img}
-        bgPos="center"
-        bgSize="contain"
-        bgRepeat="no-repeat"
-        flex="4"
-        position="relative"
-        zIndex="-20"
-        alignItems="center"
-      >
-        <Heading
-          bg="brand.500"
-          color="brand.100"
-          opacity="0.6"
-          position="absolute"
-          bottom={0}
-          w="100%"
-          textAlign="center"
+
+interface ProjectCardProps {
+    details: project;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
+    const textMuted = useColorModeValue("gray.600", "gray.400");
+    const tagBg = useColorModeValue("gray.100", "gray.700");
+
+    return (
+        <Box
+            bg={"var(--chakra-colors-bg-card)"}
+            borderRadius="xl"
+            overflow="hidden"
+            transition="all 0.3s"
+            boxShadow="lg"
+            _hover={{
+                transform: "translateY(-10px)",
+                boxShadow: "xl"
+            }}
+            width="100%"
         >
-          {details.name}
-        </Heading>
-      </Box>
-      <Center flex="2">
-        <Box>
-          <Text>{details.description}</Text>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Link isExternal href={details.code} borderBottom="1px solid white">
-              {" "}
-              Code{" "}
-            </Link>
-            <Link isExternal href={details.live} borderBottom="1px solid white">
-              {" "}
-              Preview
-            </Link>
-          </Stack>
+            <Box height="200px" overflow="hidden">
+                <Image
+                    src={details.img}
+                    alt={`${details.name} Project Screenshot`}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    transition="all 0.3s"
+                    _groupHover={{ transform: "scale(1.05)" }}
+                />
+            </Box>
+
+            <VStack padding="6" spacing="4" align="start">
+                <Heading as="h3" size="md">
+                    {details.name}
+                </Heading>
+
+                <Text color={textMuted}>
+                    {details.description}
+                </Text>
+
+                {/*<Flex flexWrap="wrap" gap="2">*/}
+                {/*    {details.technologies.map((tech, index) => (*/}
+                {/*        <Tag key={index} bg={tagBg} size="sm">*/}
+                {/*            {tech}*/}
+                {/*        </Tag>*/}
+                {/*    ))}*/}
+                {/*</Flex>*/}
+
+                <HStack spacing="4">
+                    <Link
+                        href={details.previewUrl}
+                        bg="linear-gradient(135deg, blue.400, teal.400)"
+                        color="white"
+                        px="4"
+                        py="2"
+                        borderRadius="md"
+                        fontWeight="medium"
+                        _hover={{
+                            transform: "translateY(-3px)",
+                            boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
+                        }}
+                        transition="all 0.3s"
+                    >
+                        Preview
+                    </Link>
+
+                    <Link
+                        href={details.githubUrl}
+                        bg="linear-gradient(135deg, blue.400, teal.400)"
+                        color="white"
+                        px="4"
+                        py="2"
+                        borderRadius="md"
+                        fontWeight="medium"
+                        _hover={{
+                            transform: "translateY(-3px)",
+                            boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
+                        }}
+                        transition="all 0.3s"
+                    >
+                        GitHub
+                    </Link>
+                </HStack>
+            </VStack>
         </Box>
-      </Center>
-    </Stack>
-  );
+    );
 };
 
-export default proj;
+export default ProjectCard;
