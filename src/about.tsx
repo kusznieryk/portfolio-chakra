@@ -1,28 +1,33 @@
 import React from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Image, Text, Heading } from "@chakra-ui/react";
+import Underline from "./underline";
 const about = () => {
   return (
-    <>
-      <Heading>
-        Looking for a <b>job</b> and open to participate in <b>projects</b>
-      </Heading>
-      <Box>
-        <Text>
+      <Box  height={"100vh"}>
+        <Heading pl={"200px"} pt={"20px"} color={"var(--chakra-colors-brand-300)"}>
+          About me
+          <Underline />
+        </Heading>
+    <Box display="flex" flexDirection="row" justifyContent="space-evenly" alignItems="center" height={"75vh"}>
+      <Box color={"var(--chakra-colors-brand-300)"} flexGrow={1} maxWidth={"40%"} fontSize={"2xl"}>
+        <Text >
           I would describe myself as someone exigent and who didn’t take care
           about my limits sometimes. Enthusiast of technology,{" "}
-          <span>reading</span> and <span>Open Source</span>. Student of Lic. on{" "}
-          <span>Systems</span> at the <span>UNLP</span>.
+          reading and Open Source. Student of Lic. on{" "}
+          Systems at the UNLP.
         </Text>
         <Text>
-          Something as a <span>self-taught</span> developer and an{" "}
-          <span>Argentinian</span> learning English.
+          Something as a self-taught developer and an{" "}
+          Argentinian learning English.
         </Text>
         <Text>
-          Love for <span>learning new things</span> and <span>breaking</span>{" "}
+          Love for learning new things and breaking{" "}
           the existent.
         </Text>
       </Box>
-    </>
+      <Image rounded="md" src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
+    </Box>
+      </Box>
   );
 };
 

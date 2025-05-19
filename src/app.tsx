@@ -48,15 +48,21 @@ const app = () => {
     setItems(items.map((e, i) => ({ ...e, active: list[i] })));
   }, [list]);
   return (
-    <Box minH="100vh">
-      <NavBar itemsDetails={items} />
-      <Container p={{ base: "5vh 4vw", lg: "0 4vw" }} maxW="container.lg">
-        <Flex id="home" reff={refH}>
+    <Box>
+      <Container   minH="100vh" ml={"80px"} p={"0 2rem"} maxW={"90vw"} >
+        <Box id="home"  ref={refH}
+             display="flex"
+             alignItems="center"
+             position="relative"
+             minH="100vh"
+             padding={"0 2rem"}>
           <Home />
-        </Flex>
-        <Flex id="about" reff={refA}>
+        </Box>
+        <Box id="about"
+             minH="100vh"
+             padding={"4rem 2rem"}>
           <About />
-        </Flex>
+        </Box>
         <Flex id="projects" reff={refP}>
           <Projects />
         </Flex>
