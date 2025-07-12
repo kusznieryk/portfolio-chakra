@@ -11,16 +11,9 @@ import {
     VStack,
     useColorModeValue
 } from "@chakra-ui/react";
+import { project } from "../types";
 
 // Define the project interface if needed
-interface Project {
-    name: string;
-    description: string;
-    image: string;
-    technologies: string[];
-    previewUrl: string;
-    githubUrl: string;
-}
 
 interface ProjectCardProps {
     details: project;
@@ -63,49 +56,46 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
                 <Text color={textMuted}>
                     {details.description}
                 </Text>
-
-                {/*<Flex flexWrap="wrap" gap="2">*/}
-                {/*    {details.technologies.map((tech, index) => (*/}
-                {/*        <Tag key={index} bg={tagBg} size="sm">*/}
-                {/*            {tech}*/}
-                {/*        </Tag>*/}
-                {/*    ))}*/}
-                {/*</Flex>*/}
-
                 <HStack spacing="4">
-                    <Link
-                        href={details.previewUrl}
-                        bg="linear-gradient(135deg, blue.400, teal.400)"
-                        color="white"
-                        px="4"
-                        py="2"
-                        borderRadius="md"
-                        fontWeight="medium"
-                        _hover={{
-                            transform: "translateY(-3px)",
-                            boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
-                        }}
-                        transition="all 0.3s"
-                    >
-                        Preview
-                    </Link>
+                    {details.live !== "" && details.live !== "/" && (
+                        <Link
+                            href={details.live}
+                            bg="linear-gradient(135deg, blue.400, teal.400)"
+                            color="white"
+                            px="4"
+                            py="2"
+                            borderRadius="md"
+                            fontWeight="medium"
+                            _hover={{
+                                transform: "translateY(-3px)",
+                                boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
+                            }}
+                            transition="all 0.3s"
+                            target="_blank"
+                        >
+                            Preview
+                        </Link>
+                    )}
 
-                    <Link
-                        href={details.githubUrl}
-                        bg="linear-gradient(135deg, blue.400, teal.400)"
-                        color="white"
-                        px="4"
-                        py="2"
-                        borderRadius="md"
-                        fontWeight="medium"
-                        _hover={{
-                            transform: "translateY(-3px)",
-                            boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
-                        }}
-                        transition="all 0.3s"
-                    >
-                        GitHub
-                    </Link>
+                    {details.code !== "" && details.code !== "/" && (
+                        <Link
+                            href={details.code}
+                            bg="linear-gradient(135deg, blue.400, teal.400)"
+                            color="white"
+                            px="4"
+                            py="2"
+                            borderRadius="md"
+                            fontWeight="medium"
+                            _hover={{
+                                transform: "translateY(-3px)",
+                                boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
+                            }}
+                            transition="all 0.3s"
+                            target="_blank"
+                        >
+                            Code
+                        </Link>
+                    )}
                 </HStack>
             </VStack>
         </Box>

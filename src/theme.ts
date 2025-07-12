@@ -32,7 +32,8 @@ const theme = extendTheme({
     },
     bg:{
       "card": "#1a2133",
-      "dark":"#0f1525"
+      "dark":"#0f1525",
+      "input": "rgba(255, 255, 255, 0.05)",
     }
   },
 });

@@ -70,9 +70,11 @@ const app = () => {
              padding={"4rem 2rem"}>
           <Projects />
         </Box>
-        <Flex id="contact" reff={refC}>
+        <Box id="contact" reff={refC}
+             minH="100vh"
+             padding={"4rem 2rem"}>
           <Contact />
-        </Flex>
+        </Box>
         <Footer />{" "}
       </Container>
     </Box>

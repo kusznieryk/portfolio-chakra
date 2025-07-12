@@ -6,8 +6,18 @@ const home = () => {
   const badges=["React","TypeScript","NextJS","ChakraUI","NodeJS",".NET", "Python", "Flask"];
   return (
       <>
-        <Box position={"absolute"} top={0} right={0} width={"60%"} height={"100%"} background={"linear-gradient(135deg, rgba(97, 218, 251, 0.1), rgba(121, 40, 202, 0.1));\n" +
-            "      clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%)"} zIndex={-1}> </Box>
+        <Box
+          position="absolute"
+          top={0}
+          right={0}
+          width="100%"
+          height="100%"
+          zIndex={-1}
+          sx={{
+            background: "linear-gradient(135deg, rgba(97, 218, 251, 0.1), rgba(121, 40, 202, 0.1))",
+            clipPath: "polygon(30% 0, 100% 0, 100% 100%, 0% 100%)"
+          }}
+        />
         <Box maxW={"800px"}>
           <Heading color={"transparent"} as="h1" fontSize={{ base: "5xl", lg: "6xl" }}
                    marginBottom={"1rem"}
