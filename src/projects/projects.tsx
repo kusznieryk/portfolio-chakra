@@ -42,7 +42,7 @@ const projects = () => {
     setElements(
       projects.map((el, i) => (
 
-            <Project details={el} />
+            <Project details={el} key={i}/>
       ))
     );
   }, [projects]);
@@ -60,12 +60,12 @@ const projects = () => {
     else setIndex(index - 1);
   };
   return (
-      <Box color={"var(--chakra-colors-brand-300)"} display={"flex"} flexDirection={"column"} >
-        <Heading  pl={"200px"} pt={"20px"} >
+      <Box color={"var(--chakra-colors-brand-300)"} display={"flex"} flexDirection={"column"}>
+        <Heading pl={{ base: 4, md: "200px" }} pt={{ base: 4, md: "20px" }} fontSize={{ base: "2xl", md: "4xl" }}>
           My Projects
           <Underline />
         </Heading>
-        <Box display={"grid"} gridTemplateColumns={"repeat(auto-fill, minmax(380px,1fr))"} gap={"2rem"} mt={"3rem"} alignItems={"center"} justifyContent={"space-between"} >
+        <Box display={"grid"} gridTemplateColumns={{ base: "1fr", md: "repeat(auto-fill, minmax(320px,1fr))" }} gap={{ base: 4, md: "2rem" }} mt={{ base: 4, md: "3rem" }} alignItems={"center"} justifyContent={"space-between"} px={{ base: 2, md: 8 }}>
           {elements}
         </Box>
       </Box>

@@ -35,37 +35,42 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
                 boxShadow: "xl"
             }}
             width="100%"
+            maxW={{ base: "100%", md: "400px" }}
+            mx="auto"
         >
-            <Box height="200px" overflow="hidden">
+            <Box height={{ base: "160px", md: "200px" }} overflow="hidden">
                 <Image
                     src={details.img}
                     alt={`${details.name} Project Screenshot`}
                     width="100%"
                     height="100%"
+                    maxW="100%"
+                    h="auto"
                     objectFit="cover"
                     transition="all 0.3s"
                     _groupHover={{ transform: "scale(1.05)" }}
                 />
             </Box>
 
-            <VStack padding="6" spacing="4" align="start">
-                <Heading as="h3" size="md">
+            <VStack padding={{ base: 4, md: 6 }} spacing={4} align="start">
+                <Heading as="h3" size="md" fontSize={{ base: "lg", md: "xl" }}>
                     {details.name}
                 </Heading>
 
-                <Text color={textMuted}>
+                <Text color={textMuted} fontSize={{ base: "sm", md: "md" }}>
                     {details.description}
                 </Text>
-                <HStack spacing="4">
+                <HStack spacing={4}>
                     {details.live !== "" && details.live !== "/" && (
                         <Link
                             href={details.live}
                             bg="linear-gradient(135deg, blue.400, teal.400)"
                             color="white"
-                            px="4"
-                            py="2"
+                            px={4}
+                            py={2}
                             borderRadius="md"
                             fontWeight="medium"
+                            fontSize={{ base: "sm", md: "md" }}
                             _hover={{
                                 transform: "translateY(-3px)",
                                 boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
@@ -82,10 +87,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
                             href={details.code}
                             bg="linear-gradient(135deg, blue.400, teal.400)"
                             color="white"
-                            px="4"
-                            py="2"
+                            px={4}
+                            py={2}
                             borderRadius="md"
                             fontWeight="medium"
+                            fontSize={{ base: "sm", md: "md" }}
                             _hover={{
                                 transform: "translateY(-3px)",
                                 boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"

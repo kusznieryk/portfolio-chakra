@@ -1,11 +1,8 @@
 import { Box, Container } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { useInView } from "react-intersection-observer";
-import NavBar from "./navbar/navbar";
 import Home from "./home";
 import About from "./about";
-import Flex from "./flex";
 import Projects from "./projects/projects";
 import Contact from "./contact/contact";
 import Footer from "./footer";
@@ -31,48 +28,37 @@ const app = () => {
       icon: "https://icongr.am/fontawesome/envelope.svg?size=40&color=FFFFFF",
     },
   ]);
-  const [list, setList] = useState<Array<boolean>>([]);
-  const [refH, homeInView] = useInView({
-    threshold: 0.5,
-    initialInView: true,
-  });
-  const [refA, aboutInView] = useInView({ threshold: 0.5 });
-  const [refP, projectsInView] = useInView({ threshold: 0.5 });
-  const [refC, contactInView] = useInView({ threshold: 0.5 });
 
-  useEffect(() => {
-    setList([homeInView, aboutInView, projectsInView, contactInView]);
-  }, [homeInView, projectsInView, aboutInView, contactInView]);
 
-  useEffect(() => {
-    setItems(items.map((e, i) => ({ ...e, active: list[i] })));
-  }, [list]);
   return (
-    <Box>
-      <Container   minH="100vh" ml={"80px"} p={"0 2rem"} maxW={"90vw"} >
-        <Box id="home"  ref={refH}
+    <Box overflowX="hidden">
+      <Container minH="100vh" px={{ base: 2, md: 6, lg: 8 }} maxW={{ base: "100vw", md: "container.xl" }} w="100%">
+        <Box id="home"
              display="flex"
              alignItems="center"
              position="relative"
              minH="100vh"
-             padding={"0 2rem"}
-             width={"90vw"}
+             px={{ base: 0, md: 8 }}
+             w="100%"
         >
           <Home />
         </Box>
         <Box id="about"
              minH="100vh"
-             padding={"4rem 2rem"}>
+             px={{ base: 2, md: 8 }}
+             py={{ base: 8, md: 16 }}>
           <About />
         </Box>
-        <Box id="projects" reff={refP}
+        <Box id="projects"
              minH="100vh"
-             padding={"4rem 2rem"}>
+             px={{ base: 2, md: 8 }}
+             py={{ base: 8, md: 16 }}>
           <Projects />
         </Box>
-        <Box id="contact" reff={refC}
+        <Box id="contact"
              minH="100vh"
-             padding={"4rem 2rem"}>
+             px={{ base: 2, md: 8 }}
+             py={{ base: 8, md: 16 }}>
           <Contact />
         </Box>
         <Footer />{" "}

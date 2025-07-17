@@ -3,11 +3,11 @@ import { Box, Heading, Text, Center } from "@chakra-ui/react";
 import {Badge} from "./hero/badge";
 
 const home = () => {
-  const badges=["React","TypeScript","NextJS","ChakraUI","NodeJS",".NET", "Python", "Flask"];
+  const badges=[".NET","TypeScript","NextJS","ChakraUI","NodeJS", "Python", "Flask"];
   return (
       <>
         <Box
-          position="absolute"
+          position="fixed"
           top={0}
           right={0}
           width="100%"
@@ -15,7 +15,7 @@ const home = () => {
           zIndex={-1}
           sx={{
             background: "linear-gradient(135deg, rgba(97, 218, 251, 0.1), rgba(121, 40, 202, 0.1))",
-            clipPath: "polygon(30% 0, 100% 0, 100% 100%, 0% 100%)"
+            clipPath: "polygon(0% 3px, 90% 1px, 7.63% 100%, 0.13% 100%);"
           }}
         />
         <Box maxW={"800px"}>
