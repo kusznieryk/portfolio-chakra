@@ -17,7 +17,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin} from "lucide-react";
 
 // Underline component for the heading
 const Underline = () => (
