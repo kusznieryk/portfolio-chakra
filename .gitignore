@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Agent artifacts (tests, evidence, plans)
+.artifacts/
+
+# Lock files (this project uses yarn)
+package-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

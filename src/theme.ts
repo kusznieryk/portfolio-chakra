@@ -1,40 +1,40 @@
 import { extendTheme } from "@chakra-ui/react";
 
+// Completely rewritten design system for a dark/amber theme
 const theme = extendTheme({
   styles: {
     global: {
       html: {
         scrollBehavior: "smooth",
         fontSize: "18px",
-        transition: "all 0.3s ease",
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
       },
       body: {
-        bg: "brand.400",
-        color: "brand.100",
-        fontFamily: " 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;",
-        lineHeight: "1.5",
+        bg: "bg",
+        color: "text",
+        fontFamily: "body",
+        lineHeight: 1.5,
       },
-      "span, b": {
-        color: "brand.300",
-      },
-      li: {
-        borderBottom: "solid 1px red",
-      },
+      // Remove legacy debug styling from theme
     },
   },
   colors: {
-    brand: {
-      100: "#61dafb", //primary
-      200: "#7928ca", //accent
-      300: "#e6e6e6", //text
-      400: "#141C2C",
-      500: "#a0a0a0", //text muted
-    },
-    bg:{
-      "card": "#1a2133",
-      "dark":"#0f1525",
-      "input": "rgba(255, 255, 255, 0.05)",
-    }
+    // Core palette mapped to Chakra tokens
+    bg: "#0c0d0f",       // main background
+    bg2: "#13141a",      // secondary background
+    bg3: "#1a1c24",      // tertiary background
+    surface: "#1e2028",   // card surfaces
+    amber: "#EF9F27",     // accent color
+    text: "#e8e6e0",      // main text
+    textMuted: "#8a8882", // muted text
+    textDim: "#5a5955",   // dim text
+    border: "rgba(255,255,255,0.07)",
+  },
+  fonts: {
+    heading: "'Syne', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif",
+    body: "'Lora', Georgia, Cambria, serif",
+    mono: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace",
   },
 });
 

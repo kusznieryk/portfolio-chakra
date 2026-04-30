@@ -1,111 +1,241 @@
 import React from "react";
 import {
-    Box,
-    Flex,
-    Heading,
-    Text,
-    Link,
-    Image,
-    Tag,
-    HStack,
-    VStack,
-    useColorModeValue
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  Text,
+  Link,
+  Image,
+  HStack,
+  VStack,
+  Tag,
 } from "@chakra-ui/react";
 import { project } from "../types";
-
-// Define the project interface if needed
+import { SkillTag } from "../hero/badge";
 
 interface ProjectCardProps {
-    details: project;
+  details: project;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
-    const textMuted = useColorModeValue("gray.600", "gray.400");
-    const tagBg = useColorModeValue("gray.100", "gray.700");
+const FeaturedProject: React.FC<ProjectCardProps> = ({ details }) => {
+  const stack = details.stack ?? [];
+  const longDescription = details.longDescription ?? details.description;
 
-    return (
-        <Box
-            bg={"var(--chakra-colors-bg-card)"}
-            borderRadius="xl"
+  return (
+    <Box
+      bg="surface"
+      border="1px solid"
+      borderColor="border"
+      borderRadius="lg"
+      overflow="hidden"
+      transition="border-color 0.3s"
+      _hover={{ borderColor: "amber" }}
+    >
+      <Grid
+        templateColumns={{ base: "1fr", lg: "1fr 1.4fr" }}
+        gap={0}
+      >
+        <GridItem>
+          <Box
+            height={{ base: "220px", md: "100%" }}
+            minHeight={{ md: "320px" }}
             overflow="hidden"
-            transition="all 0.3s"
-            boxShadow="lg"
-            _hover={{
-                transform: "translateY(-10px)",
-                boxShadow: "xl"
-            }}
-            width="100%"
-            maxW={{ base: "100%", md: "400px" }}
-            mx="auto"
+          >
+            <Image
+              src={details.img}
+              alt={`${details.name} Project Screenshot`}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+            />
+          </Box>
+        </GridItem>
+
+        <GridItem>
+          <VStack align="start" spacing={5} p={{ base: 6, md: 8 }}>
+            {details.badge && (
+              <Text
+                fontFamily="heading"
+                fontSize="xs"
+                fontWeight="semibold"
+                letterSpacing="wider"
+                textTransform="uppercase"
+                color="amber"
+                bg="rgba(239,159,39,0.12)"
+                px={3}
+                py={1}
+                borderRadius="md"
+              >
+                {details.badge}
+              </Text>
+            )}
+
+            <Heading
+              fontFamily="heading"
+              fontSize={{ base: "xl", md: "2xl" }}
+              fontWeight="bold"
+              color="text"
+            >
+              {details.name}
+            </Heading>
+
+            <Text
+              fontFamily="body"
+              fontSize={{ base: "md", md: "lg" }}
+              color="text"
+              lineHeight="tall"
+            >
+              {longDescription}
+            </Text>
+
+            {stack.length > 0 && (
+              <HStack spacing={2} flexWrap="wrap">
+                {stack.map((tech) => (
+                  <SkillTag key={tech} text={tech} featured />
+                ))}
+              </HStack>
+            )}
+
+            <HStack spacing={4} pt={2}>
+              {details.live && details.live !== "/" && (
+                <Link
+                  href={details.live}
+                  fontFamily="heading"
+                  fontSize="sm"
+                  fontWeight="semibold"
+                  color="amber"
+                  _hover={{ textDecoration: "underline" }}
+                  target="_blank"
+                >
+                  Live Demo →
+                </Link>
+              )}
+              {details.code && details.code !== "/" && (
+                <Link
+                  href={details.code}
+                  fontFamily="heading"
+                  fontSize="sm"
+                  fontWeight="semibold"
+                  color="textMuted"
+                  _hover={{ color: "text" }}
+                  target="_blank"
+                >
+                  Source Code
+                </Link>
+              )}
+            </HStack>
+          </VStack>
+        </GridItem>
+      </Grid>
+    </Box>
+  );
+};
+
+const RegularProject: React.FC<ProjectCardProps> = ({ details }) => {
+  const stack = details.stack ?? [];
+
+  return (
+    <Box
+      bg="surface"
+      border="1px solid"
+      borderColor="border"
+      borderRadius="lg"
+      overflow="hidden"
+      transition="border-color 0.3s, transform 0.3s"
+      _hover={{ borderColor: "amber", transform: "translateY(-4px)" }}
+    >
+      <Box height={{ base: "160px", md: "200px" }} overflow="hidden">
+        <Image
+          src={details.img}
+          alt={`${details.name} Project Screenshot`}
+          width="100%"
+          height="100%"
+          objectFit="cover"
+          transition="transform 0.3s"
+          _hover={{ transform: "scale(1.05)" }}
+        />
+      </Box>
+
+      <VStack align="start" spacing={4} p={{ base: 4, md: 6 }}>
+        <Heading
+          fontFamily="heading"
+          fontSize={{ base: "lg", md: "xl" }}
+          fontWeight="bold"
+          color="text"
         >
-            <Box height={{ base: "160px", md: "200px" }} overflow="hidden">
-                <Image
-                    src={details.img}
-                    alt={`${details.name} Project Screenshot`}
-                    width="100%"
-                    height="100%"
-                    maxW="100%"
-                    h="auto"
-                    objectFit="cover"
-                    transition="all 0.3s"
-                    _groupHover={{ transform: "scale(1.05)" }}
-                />
-            </Box>
+          {details.name}
+        </Heading>
 
-            <VStack padding={{ base: 4, md: 6 }} spacing={4} align="start">
-                <Heading as="h3" size="md" fontSize={{ base: "lg", md: "xl" }}>
-                    {details.name}
-                </Heading>
+        <Text
+          fontFamily="body"
+          fontSize={{ base: "sm", md: "md" }}
+          color="textMuted"
+          lineHeight="tall"
+          noOfLines={3}
+        >
+          {details.description}
+        </Text>
 
-                <Text color={textMuted} fontSize={{ base: "sm", md: "md" }}>
-                    {details.description}
-                </Text>
-                <HStack spacing={4}>
-                    {details.live !== "" && details.live !== "/" && (
-                        <Link
-                            href={details.live}
-                            bg="linear-gradient(135deg, blue.400, teal.400)"
-                            color="white"
-                            px={4}
-                            py={2}
-                            borderRadius="md"
-                            fontWeight="medium"
-                            fontSize={{ base: "sm", md: "md" }}
-                            _hover={{
-                                transform: "translateY(-3px)",
-                                boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
-                            }}
-                            transition="all 0.3s"
-                            target="_blank"
-                        >
-                            Preview
-                        </Link>
-                    )}
+        {stack.length > 0 && (
+          <HStack spacing={2} flexWrap="wrap">
+            {stack.map((tech) => (
+              <Tag
+                key={tech}
+                size="sm"
+                variant="outline"
+                borderColor="border"
+                color="textMuted"
+                fontFamily="mono"
+                fontSize="xs"
+                borderRadius="md"
+                px={2}
+                py={1}
+              >
+                {tech}
+              </Tag>
+            ))}
+          </HStack>
+        )}
 
-                    {details.code !== "" && details.code !== "/" && (
-                        <Link
-                            href={details.code}
-                            bg="linear-gradient(135deg, blue.400, teal.400)"
-                            color="white"
-                            px={4}
-                            py={2}
-                            borderRadius="md"
-                            fontWeight="medium"
-                            fontSize={{ base: "sm", md: "md" }}
-                            _hover={{
-                                transform: "translateY(-3px)",
-                                boxShadow: "0 5px 15px rgba(66, 153, 225, 0.4)"
-                            }}
-                            transition="all 0.3s"
-                            target="_blank"
-                        >
-                            Code
-                        </Link>
-                    )}
-                </HStack>
-            </VStack>
-        </Box>
-    );
+        <HStack spacing={4}>
+          {details.live && details.live !== "/" && (
+            <Link
+              href={details.live}
+              fontFamily="heading"
+              fontSize="sm"
+              fontWeight="semibold"
+              color="amber"
+              _hover={{ textDecoration: "underline" }}
+              target="_blank"
+            >
+              Live Demo →
+            </Link>
+          )}
+          {details.code && details.code !== "/" && (
+            <Link
+              href={details.code}
+              fontFamily="heading"
+              fontSize="sm"
+              fontWeight="semibold"
+              color="textMuted"
+              _hover={{ color: "text" }}
+              target="_blank"
+            >
+              Source Code
+            </Link>
+          )}
+        </HStack>
+      </VStack>
+    </Box>
+  );
+};
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ details }) => {
+  if (details.featured) {
+    return <FeaturedProject details={details} />;
+  }
+  return <RegularProject details={details} />;
 };
 
 export default ProjectCard;

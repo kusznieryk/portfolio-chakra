@@ -5,220 +5,254 @@ import {
   FormControl,
   FormLabel,
   Grid,
+  GridItem,
   Heading,
+  HStack,
   Icon,
   Input,
+  Link,
   Text,
   Textarea,
-  Button,
   VStack,
-  HStack,
-  useColorModeValue,
-  Link,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, Phone } from "lucide-react";
+import { CONTACT_LINKS } from "../data/siteData";
 
-// Underline component for the heading
-const Underline = () => (
-    <Box
-        height="4px"
-        width="80px"
-        bgGradient="linear(to-r, teal.400, blue.500)"
-        borderRadius="full"
-        mt={2}
-        mb={8}
-    />
-);
-
-// ContactItem component for each contact info item
-const ContactItem = ({ icon, title, content }: { icon: React.ElementType, title: string, content: string }) => {
-  const bgCard = "var(--chakra-colors-bg-card)";
-  const bgHover = "rgba(97, 218, 251, 0.1)";
-
-  return (
-      <Flex
-          alignItems="center"
-          p={4}
-          bg={bgCard}
-          borderRadius="md"
-          transition="all 0.3s ease"
-          _hover={{
-            transform: "translateX(10px)",
-            bg: bgHover
-          }}
-      >
-        <Box color="teal.400" mr={4}>
-          <Icon as={icon} boxSize={6} />
-        </Box>
-        <Box>
-          <Text fontWeight="medium" fontSize="lg">{title}</Text>
-          <Text color={useColorModeValue("gray.600", "gray.300")}>{content}</Text>
-        </Box>
-      </Flex>
-  );
+// Map icon string from CONTACT_LINKS to lucide-react components
+const iconMap: Record<string, React.ElementType> = {
+  email: Mail,
+  github: Github,
+  linkedin: Linkedin,
+  phone: Phone,
 };
 
-const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
-
-  const bgCard = "var(--chakra-colors-bg-card)";
-  const inputBg = "var(--chakra-colors-bg-input)";
-  const borderColor = useColorModeValue("gray.200", "gray.600");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-  };
-
+const Contact = () => {
   return (
-      <Box
-          as="section"
-          id="contact"
-          py={{ base: 10, md: 20 }}
-          px={{ base: 2, md: 4 }}
-          minH="100vh"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-      >
-        <Container maxW={{ base: "container.sm", lg: "container.xl" }}>
-
-            <Heading as="h2" size="xl" fontSize={{ base: "2xl", md: "4xl" }}>
-              Get In Touch
-              <Underline />
-            </Heading>
-
-          <Grid
-              templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
-              gap={{ base: 4, lg: 16 }}
+    <Box as="section" id="contact-section" py={{ base: 12, md: 20 }}>
+      <Container maxW="container.xl">
+        <HStack spacing={3} mb={2}>
+          <Box w="32px" h="3px" bg="amber" borderRadius="full" />
+          <Text
+            fontFamily="heading"
+            fontSize="sm"
+            fontWeight="semibold"
+            letterSpacing="wider"
+            textTransform="uppercase"
+            color="amber"
           >
-            {/* Contact Information */}
-            <VStack spacing={6} align="stretch">
-              <ContactItem
-                  icon={Mail}
-                  title="Email"
-                  content="contact@ekusz.com"
-              />
-              <ContactItem
-                  icon={Phone}
-                  title="Phone"
-                  content="+54 9 2214 88-4401"
-              />
-              <ContactItem
-                  icon={MapPin}
-                  title="Location"
-                  content="Buenos Aires, Argentina"
-              />
-              <Link href="https://github.com/kusznieryk">
-              <ContactItem
-                  icon={Github}
-                  title="GitHub"
-                  content="github.com/kusznieryk"
-              />
-              </Link>
-              <Link href="https://www.linkedin.com/in/kusznieryk/">
-              <ContactItem
-                  icon={Linkedin}
-                  title="LinkedIn"
-                  content="linkedin.com/in/kusznieryk"
-              />
-              </Link>
+            Contact
+          </Text>
+        </HStack>
+
+        <Heading
+          fontFamily="heading"
+          fontSize={{ base: "3xl", md: "5xl" }}
+          fontWeight="bold"
+          color="text"
+          mb={{ base: 4, md: 6 }}
+        >
+          Let&apos;s build something{" "}
+          <Text as="span" fontStyle="italic" color="amber">
+            great
+          </Text>
+          .
+        </Heading>
+
+        <Text
+          fontFamily="body"
+          fontSize={{ base: "md", md: "lg" }}
+          color="textMuted"
+          mb={{ base: 8, md: 12 }}
+          maxW="480px"
+        >
+          Have a project in mind or just want to connect? Reach out through any
+          of the channels below or drop me a message directly.
+        </Text>
+
+        <Grid
+          templateColumns={{ base: "1fr", lg: "1fr 1.4fr" }}
+          gap={{ base: 8, lg: 12 }}
+        >
+          <GridItem>
+            <VStack spacing={4} align="stretch">
+              {CONTACT_LINKS.map((link) => {
+                const IconComponent = iconMap[link.icon];
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    isExternal={link.href.startsWith("http")}
+                    _hover={{ textDecoration: "none" }}
+                  >
+                    <Flex
+                      align="center"
+                      p={4}
+                      bg="surface"
+                      border="1px solid"
+                      borderColor="border"
+                      borderRadius="md"
+                      transition="border-color 0.2s, transform 0.2s"
+                      _hover={{
+                        borderColor: "amber",
+                        transform: "translateX(4px)",
+                      }}
+                    >
+                      <Box
+                        color="amber"
+                        mr={4}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        w="40px"
+                        h="40px"
+                        border="1px solid"
+                        borderColor="border"
+                        borderRadius="md"
+                        transition="border-color 0.2s"
+                      >
+                        {IconComponent && <Icon as={IconComponent} boxSize={5} />}
+                      </Box>
+                      <Box>
+                        <Text
+                          fontFamily="heading"
+                          fontSize="sm"
+                          fontWeight="semibold"
+                          color="text"
+                        >
+                          {link.label}
+                        </Text>
+                        <Text fontFamily="body" fontSize="sm" color="textMuted">
+                          {link.href.startsWith("mailto:")
+                            ? link.href.replace("mailto:", "")
+                            : link.href.startsWith("tel:")
+                              ? link.href.replace("tel:", "")
+                              : link.href.replace(/^https?:\/\/(www\.)?/, "")}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  </Link>
+                );
+              })}
             </VStack>
+          </GridItem>
 
-            {/* Contact Form */}
+          <GridItem>
             <Box
-                as="form"
-                action="https://getform.io/f/93e97d25-680a-4a31-b3d3-35f472dd10b0"
-                method="POST"
-                bg={bgCard}
-                p={{ base: 4, md: 8 }}
-                borderRadius="xl"
-                boxShadow="lg"
+              as="form"
+              action="https://getform.io/f/93e97d25-680a-4a31-b3d3-35f472dd10b0"
+              method="POST"
+              bg="surface"
+              border="1px solid"
+              borderColor="border"
+              borderRadius="lg"
+              p={{ base: 6, md: 8 }}
             >
-              <VStack spacing={4}>
+              <VStack spacing={5}>
                 <FormControl isRequired>
-                  <FormLabel htmlFor="name" fontSize={{ base: "sm", md: "md" }}>Full Name</FormLabel>
+                  <FormLabel
+                    htmlFor="name"
+                    fontFamily="heading"
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    color="text"
+                  >
+                    Name
+                  </FormLabel>
                   <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      bg={inputBg}
-                      borderColor={borderColor}
-                      _focus={{ borderColor: "teal.400" }}
-                      fontSize={{ base: "sm", md: "md" }}
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    bg="bg2"
+                    border="1px solid"
+                    borderColor="border"
+                    color="text"
+                    _placeholder={{ color: "textDim" }}
+                    _focus={{ borderColor: "amber", boxShadow: "0 0 0 1px var(--chakra-colors-amber)" }}
+                    borderRadius="md"
                   />
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel htmlFor="email" fontSize={{ base: "sm", md: "md" }}>Email</FormLabel>
+                  <FormLabel
+                    htmlFor="email"
+                    fontFamily="heading"
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    color="text"
+                  >
+                    Email
+                  </FormLabel>
                   <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Your email"
-                      bg={inputBg}
-                      borderColor={borderColor}
-                      _focus={{ borderColor: "teal.400" }}
-                      fontSize={{ base: "sm", md: "md" }}
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    bg="bg2"
+                    border="1px solid"
+                    borderColor="border"
+                    color="text"
+                    _placeholder={{ color: "textDim" }}
+                    _focus={{ borderColor: "amber", boxShadow: "0 0 0 1px var(--chakra-colors-amber)" }}
+                    borderRadius="md"
                   />
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel htmlFor="subject" fontSize={{ base: "sm", md: "md" }}>Reason of contact</FormLabel>
+                  <FormLabel
+                    htmlFor="message"
+                    fontFamily="heading"
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    color="text"
+                  >
+                    Message
+                  </FormLabel>
                   <Textarea
-                      id="subject"
-                      name="subject"
-                      placeholder="I would like to talk to you about..."
-                      bg={inputBg}
-                      borderColor={borderColor}
-                      _focus={{ borderColor: "teal.400" }}
-                      minH="100px"
-                      fontSize={{ base: "sm", md: "md" }}
+                    id="message"
+                    name="message"
+                    placeholder="Tell me about your project..."
+                    bg="bg2"
+                    border="1px solid"
+                    borderColor="border"
+                    color="text"
+                    _placeholder={{ color: "textDim" }}
+                    _focus={{ borderColor: "amber", boxShadow: "0 0 0 1px var(--chakra-colors-amber)" }}
+                    borderRadius="md"
+                    minH="120px"
+                    resize="vertical"
                   />
                 </FormControl>
 
-                <Button
-                    type="submit"
-                    w="full"
-                    mt={4}
-                    py={{ base: 4, md: 6 }}
-                    fontSize={{ base: "md", md: "lg" }}
-                    fontWeight="bold"
-                    letterSpacing="wide"
-                    borderRadius="full"
-                    bgGradient="linear(to-r, teal.400, blue.500)"
-                    boxShadow="0 4px 20px rgba(56, 178, 172, 0.15)"
-                    color="white"
-                    _hover={{
-                      transform: "scale(1.04) translateY(-2px)",
-                      bgGradient: "linear(to-r, teal.500, blue.600)",
-                      boxShadow: "0 8px 24px rgba(66, 153, 225, 0.18)",
-                      opacity: 0.95,
-                    }}
-                    _active={{
-                      bgGradient: "linear(to-r, teal.600, blue.700)",
-                      boxShadow: "0 2px 8px rgba(56, 178, 172, 0.10)",
-                    }}
-                    transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                <Box
+                  as="button"
+                  type="submit"
+                  w="full"
+                  py={3}
+                  px={6}
+                  bg="amber"
+                  color="bg"
+                  fontFamily="heading"
+                  fontWeight="semibold"
+                  fontSize="sm"
+                  letterSpacing="wider"
+                  borderRadius="md"
+                  border="1px solid"
+                  borderColor="amber"
+                  transition="all 0.2s"
+                  _hover={{
+                    bg: "transparent",
+                    color: "amber",
+                  }}
                 >
-                  Send Message
-                </Button>
+                  Send message →
+                </Box>
               </VStack>
             </Box>
-          </Grid>
-        </Container>
-      </Box>
+          </GridItem>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
-export default ContactForm;
+export default Contact;

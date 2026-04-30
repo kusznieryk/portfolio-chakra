@@ -1,24 +1,19 @@
 import {
-  Tabs,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tab,
-  Fade, Heading,
-    Box
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
-import Underline from "../underline";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { project } from "../types";
 import Project from "./project";
-import Button from "./button";
 
-const projects = () => {
+const Projects = () => {
   const [projects, setProjects] = useState<Array<project>>([]);
-  const [index, setIndex] = useState<number>(0);
-  const [elements, setElements] = useState<Array<ReactElement>>([]);
-  const [list, setList] = useState<Array<ReactElement>>([]);
   const projectsURL =
     "https://gist.githubusercontent.com/kusznieryk/ab892e5b8448402cc79ef0a0ea54d6e8/raw/";
 
@@ -28,48 +23,61 @@ const projects = () => {
       .then((r) => setProjects(r));
   }, []);
 
-  useEffect(() => {
-    setList(
-      projects.map((el, i) => (
-        <Tab key={i} onClick={changeIndex}>
-          {i + 1}
-        </Tab>
-      ))
-    );
-  }, [projects]);
+  const featured = projects.filter((p) => p.featured);
+  const regular = projects.filter((p) => !p.featured);
 
-  useEffect(() => {
-    setElements(
-      projects.map((el, i) => (
-
-            <Project details={el} key={i}/>
-      ))
-    );
-  }, [projects]);
-
-  const changeIndex = ({ target }: React.FormEvent<EventTarget>) => {
-    const tar = target as unknown as HTMLElement;
-    setIndex(Number(tar.dataset.index));
-  };
-  const addIndex = () => {
-    if (index == elements.length - 1) setIndex(0);
-    else setIndex(index + 1);
-  };
-  const subIndex = () => {
-    if (index == 0) setIndex(elements.length - 1);
-    else setIndex(index - 1);
-  };
   return (
-      <Box color={"var(--chakra-colors-brand-300)"} display={"flex"} flexDirection={"column"}>
-        <Heading pl={{ base: 4, md: "200px" }} pt={{ base: 4, md: "20px" }} fontSize={{ base: "2xl", md: "4xl" }}>
-          My Projects
-          <Underline />
-        </Heading>
-        <Box display={"grid"} gridTemplateColumns={{ base: "1fr", md: "repeat(auto-fill, minmax(320px,1fr))" }} gap={{ base: 4, md: "2rem" }} mt={{ base: 4, md: "3rem" }} alignItems={"center"} justifyContent={"space-between"} px={{ base: 2, md: 8 }}>
-          {elements}
-        </Box>
-      </Box>
+    <Box as="section" py={{ base: 12, md: 20 }}>
+      {/* Section label with amber prefix line */}
+      <HStack spacing={3} mb={2}>
+        <Box w="32px" h="3px" bg="amber" borderRadius="full" />
+        <Text
+          fontFamily="heading"
+          fontSize="sm"
+          fontWeight="semibold"
+          letterSpacing="wider"
+          textTransform="uppercase"
+          color="amber"
+        >
+          Projects
+        </Text>
+      </HStack>
+
+      {/* Section title */}
+      <Heading
+        fontFamily="heading"
+        fontSize={{ base: "3xl", md: "5xl" }}
+        fontWeight="bold"
+        color="text"
+        mb={{ base: 8, md: 12 }}
+      >
+        Things I've built.
+      </Heading>
+
+      {/* Featured projects — full-width cards */}
+      {featured.length > 0 && (
+        <VStack align="stretch" spacing={{ base: 8, md: 12 }} mb={{ base: 8, md: 12 }}>
+          {featured.map((p, i) => (
+            <Project key={i} details={p} />
+          ))}
+        </VStack>
+      )}
+
+      {/* Regular projects — grid of cards */}
+      {regular.length > 0 && (
+        <Grid
+          templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
+          gap={{ base: 6, md: 8 }}
+        >
+          {regular.map((p, i) => (
+            <GridItem key={i}>
+              <Project details={p} />
+            </GridItem>
+          ))}
+        </Grid>
+      )}
+    </Box>
   );
 };
 
-export default projects;
+export default Projects;
