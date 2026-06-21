@@ -2,6 +2,9 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -18,7 +21,6 @@
     "react-intersection-observer": "^8.33.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^4.0.0",

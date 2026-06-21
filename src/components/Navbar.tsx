@@ -69,7 +69,9 @@ const Navbar: React.FC = () => {
         <HStack spacing={4}>
           <Button
             as="a"
-            href="#cv"
+            href="https://drive.google.com/drive/u/0/folders/1h7xmJJYWdGN3nJGiBxHoefqUGAURgTJ4"
+            target="_blank"
+            rel="noopener noreferrer"
             variant="outline"
             borderColor="amber"
             color="amber"

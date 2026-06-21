@@ -11,14 +11,14 @@ export const HERO_DATA: HeroData = {
   stats: [
     { value: '3+', label: 'Yrs Teaching' },
     { value: '8', label: 'Subjects' },
-    { value: '8.64', label: 'GPA' }
+    { value: '8.64/10', label: 'Promedio' }
   ]
 }
 
 // ABOUT DATA
 export const ABOUT_DATA: AboutData = {
   paragraphs: [
-    "I'm a Full Stack Engineer and university lecturer based in La Plata, Argentina. I hold a degree Analista Programador Universitario from UNLP with a GPA of 8.64, and I'm currently completing my Licenciatura en Sistemas thesis.",
+    "I'm a Full Stack Engineer and university lecturer based in La Plata, Argentina. I hold a degree Analista Programador Universitario from UNLP with a promedio of 8.64/10, and I'm currently completing my Licenciatura en Sistemas thesis.",
     "My professional work spans production systems in .NET C#, backend APIs in Python/Flask with real data requirements, and frontend development in React / Next.js with a focus on usability.",
     "Since 2023 I've been a teaching assistant at the Faculty of Informatics, UNLP, covering topics from database architecture and NoSQL systems to Deep Learning — convolutional, recurrent, and generative neural networks.",
     "I'm a genuine advocate for open source and lifelong learning. I break things to understand them, then teach what I find."
